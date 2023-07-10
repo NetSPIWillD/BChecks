@@ -1,0 +1,15 @@
+metadata:
+    language: v1-beta
+    name: "Server - HTTP Server Header observed."
+    description: "Checks for HTTP Server version disclosure."
+    tags: "passive"
+		author: "@NetSPIWillD"
+
+given response then
+    if ("Server" in {latest.response.headers}) then
+        report issue:
+            severity: low
+            confidence: tentative
+            detail: "Potential server version disclosure."
+            remediation: "Consider removing the Server header to avoid accidentally disclosing technologies in use."
+    end if
