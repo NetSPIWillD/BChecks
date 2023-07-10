@@ -1,0 +1,15 @@
+metadata:
+    language: v1-beta
+    name: "HSTS - Missing Header"
+    description: "Checks response for missing Strict-Transport-Security header."
+    tags: "passive"
+		author: "@WillDNetSPI"
+
+given response then
+    if not("Strict-Transport-Security" in {latest.response.headers}) then
+        report issue:
+            severity: low
+            confidence: firm
+            detail: "Missing HSTS Header."
+            remediation: "Include HSTS Header."
+    end if
