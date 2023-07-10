@@ -1,0 +1,15 @@
+metadata:
+    language: v1-beta
+    name: "HSTS - Missing includeSubDomains"
+    description: "Checks response for missing Strict-Transport-Security header includeSubDomains directive."
+    tags: "passive"
+		author: "@WillDNetSPI"
+
+given response then
+    if ("Strict-Transport-Security" in {latest.response.headers}) and (not("includeSubDomains" in {latest.response.headers})) then
+        report issue:
+            severity: low
+            confidence: firm
+            detail: "MissingincludeSubDomains directive from HSTS Header."
+            remediation: "Include HSTS Header includeSubDomains"
+    end if
