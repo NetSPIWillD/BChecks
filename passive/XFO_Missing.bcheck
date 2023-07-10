@@ -1,0 +1,16 @@
+metadata:
+    language: v1-beta
+    name: "XFO - Missing Header"
+    description: "Checks for missing XFO Headers on response."
+    tags: "passive"
+	    author: "@WillDNetSPI"
+
+given response then
+    if not("X-Frame-Options" in {latest.response.headers}) then
+	
+        report issue:
+            severity: low
+            confidence: firm
+            detail: "Missing X-Frame-Options Header"
+            remediation: "Implement the X-Frame-Options header."
+    end if
