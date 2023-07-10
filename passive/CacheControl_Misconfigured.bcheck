@@ -1,0 +1,18 @@
+metadata:
+    language: v1-beta
+    name: "Caching - Cache-control without no-store"
+    description: "Checks for the cache-control header without the no-store or no-cache directive."
+    tags: "passive"
+		author: "@WillDNetSPI"
+
+given response then
+    if "Cache-Control" in {latest.response.headers} then
+				if (not("no-store" in {latest.response.headers})) or (not("no-cache" in {latest.response.headers})) then 
+	        report issue:
+	            severity: low
+	            confidence: tentative
+	            detail: "Cache Control header returned without no-store or no-cache directive."
+	            remediation: "Consider adding no-store or no-cache directive for sensitive data."
+    		end if 				
+	end if
+
