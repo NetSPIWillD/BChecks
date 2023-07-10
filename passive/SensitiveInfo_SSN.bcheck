@@ -3,7 +3,7 @@ metadata:
     name: "Sensitive Info - SSN"
     description: "Potential Social Security Number included in response."
     tags: "passive"
-		author: "@WillDNetSPI"
+		author: "@NetSPIWillD"
 
 given response then
     if {latest.response} matches "\d{3}-\d{2}-\d{4}" then

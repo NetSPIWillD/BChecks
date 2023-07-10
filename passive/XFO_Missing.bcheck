@@ -3,7 +3,7 @@ metadata:
     name: "XFO - Missing Header"
     description: "Checks for missing XFO Headers on response."
     tags: "passive"
-	    author: "@WillDNetSPI"
+	    author: "@NetSPIWillD"
 
 given response then
     if not("X-Frame-Options" in {latest.response.headers}) then

@@ -2,7 +2,7 @@ metadata:
     language: v1-beta
     name: "Robots.txt Check"
     description: "Tests for existance of robots.txt file for potential information disclosure."
-    author: "@WillDNetSPI"
+    author: "@NetSPIWillD"
 
 run for each:
     # you could add more values to this list to make the check repeat

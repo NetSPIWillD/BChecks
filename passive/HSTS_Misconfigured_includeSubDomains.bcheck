@@ -3,7 +3,7 @@ metadata:
     name: "HSTS - Missing includeSubDomains"
     description: "Checks response for missing Strict-Transport-Security header includeSubDomains directive."
     tags: "passive"
-		author: "@WillDNetSPI"
+		author: "@NetSPIWillD"
 
 given response then
     if ("Strict-Transport-Security" in {latest.response.headers}) and (not("includeSubDomains" in {latest.response.headers})) then
