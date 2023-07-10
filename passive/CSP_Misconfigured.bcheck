@@ -1,0 +1,18 @@
+metadata:
+    language: v1-beta
+    name: "CSP - Unsafe Directive Used"
+    description: "Checks for unsafe-eval or unsafe-inline directives in CSP. Please verify manually."
+    tags: "passive"
+		author: "@WillDNetSPI"
+
+given response then
+    if "Content-Security-Policy" in {latest.response.headers} then
+				if ("unsafe-inline" in {latest.response.headers}) or ("unsafe-eval" in {latest.response.headers}) then 
+	        report issue:
+	            severity: low
+	            confidence: firm
+	            detail: "Content Security Policy uses unsafe directives."
+	            remediation: "Consider removing unsafe directives from CSP."
+    		end if 				
+	end if
+
