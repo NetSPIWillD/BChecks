@@ -1,0 +1,24 @@
+metadata:
+    language: v1-beta
+    name: "Robots.txt Check"
+    description: "Tests for existance of robots.txt file for potential information disclosure."
+    author: "@WillDNetSPI"
+
+run for each:
+    # you could add more values to this list to make the check repeat
+    potential_path =
+        "/robots.txt",
+				"/Robots.txt"
+
+given host then
+    send request called check:
+        method: "GET"
+        path: {potential_path}
+
+    if ({check.response.body} matches ".+") and ({check.response.status_code} is "200") then
+        report issue:
+            severity: info
+            confidence: certain
+            detail: `Non-empty Robots.txt file found. Please check for information disclosure: \n\n{check.response.body}\n`
+            remediation: "Ensure robots.txt does not highlight sensitive functionality.."
+    end if
