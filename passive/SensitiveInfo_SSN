@@ -1,0 +1,15 @@
+metadata:
+    language: v1-beta
+    name: "Sensitive Info - SSN"
+    description: "Potential Social Security Number included in response."
+    tags: "passive"
+		author: "@WillDNetSPI"
+
+given response then
+    if {latest.response} matches "\d{3}-\d{2}-\d{4}" then
+        report issue:
+            severity: medium
+            confidence: tentative
+            detail: "Sensitive Information - SSN"
+            remediation: "Consider removing or redacting if not explicitly required."
+    end if
