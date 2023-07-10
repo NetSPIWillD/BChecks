@@ -1,0 +1,18 @@
+metadata:
+    language: v1-beta
+    name: "CSP - Missing Header"
+    description: "Checks for missing CSP Headers on response or meta tags."
+    tags: "passive"
+	    author: "@WillDNetSPI"
+
+given response then
+    if not("Content-Security-Policy" in {latest.response.headers}) then
+		# Unsure if the following regex is robust, might be worth checking manually for meta http-equiv headers anyway. 
+			if not({latest.response} matches "<meta\s+http-equiv=[\"']Content-Security-Policy[\"'][^>]*>") then
+        report issue:
+            severity: low
+            confidence: firm
+            detail: "Missing Content Security Policy Header"
+            remediation: "Implement an appropriate Content-Security-Policy."
+    end if
+end if
