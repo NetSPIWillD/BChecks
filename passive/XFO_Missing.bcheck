@@ -6,7 +6,7 @@ metadata:
 	    author: "@NetSPIWillD"
 
 given response then
-    if not("X-Frame-Options" in {latest.response.headers}) then
+    if not("x-frame-options" in {to_lower({latest.response.headers})}) then
 	
         report issue:
             severity: low
