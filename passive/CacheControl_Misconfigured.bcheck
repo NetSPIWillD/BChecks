@@ -6,8 +6,8 @@ metadata:
 		author: "@NetSPIWillD"
 
 given response then
-    if "Cache-Control" in {latest.response.headers} then
-				if (not("no-store" in {latest.response.headers})) or (not("no-cache" in {latest.response.headers})) then 
+    if "cache-control" in {to_lower({latest.response.headers})} then
+				if (not("no-store" in {to_lower({latest.response.headers})})) or (not("no-cache" in {to_lower({latest.response.headers})})) then 
 	        report issue:
 	            severity: low
 	            confidence: tentative
