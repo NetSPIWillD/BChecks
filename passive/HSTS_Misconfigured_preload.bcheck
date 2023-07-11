@@ -1,15 +1,15 @@
 metadata:
     language: v1-beta
-    name: "HSTS - Missing includeSubDomains"
-    description: "Checks response for missing Strict-Transport-Security header includeSubDomains directive."
+    name: "HSTS - Missing preload"
+    description: "Checks response for missing Strict-Transport-Security header preload directive."
     tags: "passive"
 		author: "@NetSPIWillD"
 
 given response then
-    if ("Strict-Transport-Security" in {latest.response.headers}) and (not("includeSubDomains" in {latest.response.headers})) then
+    if ("strict-transport-security" in {to_lower({latest.response.headers})}) and (not("preload" in {to_lower({latest.response.headers})})) then
         report issue:
             severity: low
             confidence: firm
-            detail: "MissingincludeSubDomains directive from HSTS Header."
-            remediation: "Include HSTS Header includeSubDomains"
+            detail: "preload directive from HSTS Header."
+            remediation: "Include HSTS Header with preload directive."
     end if
