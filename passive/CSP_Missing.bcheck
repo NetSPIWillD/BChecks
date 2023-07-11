@@ -6,9 +6,9 @@ metadata:
 	    author: "@NetSPIWillD"
 
 given response then
-    if not("Content-Security-Policy" in {latest.response.headers}) then
-		# Unsure if the following regex is robust, might be worth checking manually for meta http-equiv headers anyway. 
-			if not({latest.response} matches "<meta\s+http-equiv=[\"']Content-Security-Policy[\"'][^>]*>") then
+    if not("content-security-policy" in {to_lower({latest.response.headers})}) then
+		# (?i) for case insensitivity, headers and tags are case insensitive.
+			if not({latest.response} matches "<(?i)(meta)\s+(?i)(http-equiv)=[\"'](?i)(Content-Security-Policy)[\"'][^>]*>") then
         report issue:
             severity: low
             confidence: firm
