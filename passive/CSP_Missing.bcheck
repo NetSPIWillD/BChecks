@@ -11,7 +11,7 @@ given response then
 			if not({latest.response} matches "<(?i)(meta)\s+(?i)(http-equiv)=[\"'](?i)(Content-Security-Policy)[\"'][^>]*>") then
         report issue:
             severity: low
-            confidence: firm
+            confidence: tentative
             detail: "Missing Content Security Policy Header"
             remediation: "Implement an appropriate Content-Security-Policy."
     end if
