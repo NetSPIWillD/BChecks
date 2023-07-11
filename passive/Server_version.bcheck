@@ -1,3 +1,4 @@
+# Big likelihood of False Positives with custom headers here but not yet tested.
 metadata:
     language: v1-beta
     name: "Server - HTTP Server Header observed."
@@ -6,7 +7,7 @@ metadata:
 		author: "@NetSPIWillD"
 
 given response then
-    if ("Server" in {latest.response.headers}) then
+    if ("server" in {to_lower({latest.response.headers})}) then
         report issue:
             severity: low
             confidence: tentative
