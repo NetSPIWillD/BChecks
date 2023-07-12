@@ -9,7 +9,7 @@ metadata:
 given response then
     if ("server" in {to_lower({latest.response.headers})}) then
         report issue:
-            severity: low
+            severity: info
             confidence: tentative
             detail: "Potential server version disclosure."
             remediation: "Consider removing the Server header to avoid accidentally disclosing technologies in use."
