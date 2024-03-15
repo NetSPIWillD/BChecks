@@ -1,0 +1,57 @@
+# WIP - Untested and incomplete.
+
+metadata:
+    language: v2-beta
+    name: "Cloud Storage Checks"
+    description: "Checks for Cloud Storage URLs in Application Responses"
+    tags: "passive"
+        author: "@NetSPIWillD"
+
+given response then
+
+
+    #  Azure Storage Account
+    if {latest.response} matches "https://[a-z0-9]+\.blob\.core\.windows\.net/[a-zA-Z0-9_/-]+" then
+
+        report issue and continue:
+	        name: "Cloud Storage URL - Azure Storage Account"
+	        severity: medium
+	        confidence: firm
+	        detail: "Azure Storage Account URL(s) identified. Please review output. Regex: https://[a-z0-9]+\.blob\.core\.windows\.net/[a-zA-Z0-9_/-]+ "
+	        remediation: ""
+    end if
+
+    #  Azure Storage Account - Non-Standard Cloud
+    if {latest.response} matches "https://[a-z0-9]+\.blob\.core\.[a-z0-9]+\.[a-z]+/[a-zA-Z0-9_/-]+" then
+
+        report issue and continue:
+            name: "Cloud Storage URL - Azure Storage Account  (Non-Standard Cloud)"
+            severity: medium
+            confidence: tentative
+            detail: "Potential Azure Storage Account URL(s) identified. This may be on a different Azure environment. Please review output. Regex: https://[a-z0-9]+\.blob\.core\.[a-z0-9]+\.[a-z]+/[a-zA-Z0-9_/-]+"
+            remediation: ""
+    end if
+
+    #  Amazon S3
+    if {latest.response} matches "https?://([a-z0-9-]+\.)?s3\.([a-z0-9-]+\.)?amazonaws\.com/[a-z0-9.-]+" then
+
+        report issue and continue:
+            name: "Cloud Storage URL - Amazon S3 Bucket"
+            severity: medium
+            confidence: firm
+            detail: "AWS S3 URL(s) identified. Please review output. Regex: https?://([a-z0-9-]+\.)?s3\.([a-z0-9-]+\.)?amazonaws\.com/[a-z0-9.-]+"
+            remediation: ""
+    end if
+
+    #  GCP
+    if {latest.response} matches "https?://storage\.googleapis\.com/[a-z0-9_.-]+|https?://([a-z0-9_.-]+\.)?storage\.cloud\.google\.com/[a-z0-9_.-]+" then
+
+        report issue and continue:
+            name: "Cloud Storage URL - GCP Storage"
+            severity: medium
+            confidence: firm
+            detail: "GCP Storage URL(s) identified. Please review output. Regex: 
+https?://storage\.googleapis\.com/[a-z0-9_.-]+|https?://([a-z0-9_.-]+\.)?storage\.cloud\.google\.com/[a-z0-9_.-]+"
+            remediation: ""
+    end if
+
